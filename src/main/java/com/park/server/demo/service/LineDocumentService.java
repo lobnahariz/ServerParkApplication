@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*
 @Service
 @Primary
 public class LineDocumentService implements ILineDocumentService {
@@ -37,4 +37,4 @@ public class LineDocumentService implements ILineDocumentService {
         lineDocument.setId_line(id);
         lineDocumentRepository.delete(lineDocument);
     }
-}
+}*/

@@ -1,6 +1,7 @@
 package com.park.server.demo.service;
 
 import com.park.server.demo.model.EnteteDocument;
+import com.park.server.demo.model.LineDocument;
 import com.park.server.demo.model.Produit;
 import com.park.server.demo.repository.EnteteDocumentRepository;
 import com.park.server.demo.repository.ProduitRepository;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
-
+import java.util.UUID;
+/*
 @Service
 @Primary
 public class EnteteDocumentService implements  IEnteteDocumentService {
@@ -23,8 +26,9 @@ private EnteteDocumentRepository enteteDocumentRepository;
     }
 
     @Override
-    public void addEnteteDocument(EnteteDocument enteteDocument) {
-        enteteDocumentRepository.save(enteteDocument);
+    public EnteteDocument addEnteteDocument(EnteteDocument enteteDocument) {
+     return  enteteDocumentRepository.save(enteteDocument);
+
     }
 
     @Override
@@ -32,11 +36,23 @@ private EnteteDocumentRepository enteteDocumentRepository;
         enteteDocumentRepository.save(enteteDocument);
     }
 
-    @Override
+   @Override
     public void deleteEnteteDocument(Long id) {
 EnteteDocument enteteDocument = new EnteteDocument();
 enteteDocument.setId(id);
 enteteDocumentRepository.delete(enteteDocument);
 
     }
+
+    @Override
+    public void addLindToEntete(EnteteDocument enteteDocument, List<LineDocument> lineDocument) {
+        enteteDocument.setLinesDocument(lineDocument);
+        enteteDocumentRepository.save(enteteDocument);
+    }
+
+    @Override
+    public EnteteDocument getEnteteByRef(String ref) {
+        return enteteDocumentRepository.findByRef(ref);
+    }
 }
+*/
