@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bonDeLivraison")
-@CrossOrigin
 public class BonDeLivraisonController {
 
    /* @Autowired
@@ -32,10 +31,16 @@ public class BonDeLivraisonController {
         this.mapper = mapper;
     }
 
-    @GetMapping
-    public List<BonLivraisonDocument> getAllBonDeLivraison(){
-        return  bonDeLivraisonRepository.findAll();
-    }
+ //  @GetMapping
+  //  public List<BonDeLivraisonDocumentModel> getAllBonDeLivraison(){
+    //    List<BonLivraisonDocument> bonLivraisonDocument = bonDeLivraisonRepository.findAll();
+//System.out.println(bonLivraisonDocument.size()+"taiiiiile");
+  //      return  this.mapper.convertToBonDeLivraisonDocumentModel(bonLivraisonDocument);
+   // }
+ @GetMapping
+ public List<BonLivraisonDocument> getAllBonLivraisonDocument(){
+     return  bonDeLivraisonRepository.findAll();
+ }
 
     @PostMapping
     public BonLivraisonDocument save(@RequestBody BonDeLivraisonDocumentModel bonDeLivraisonDocumentModel,
@@ -44,11 +49,20 @@ public class BonDeLivraisonController {
         if (bindingResult.hasErrors()) {
             throw new ValidationException();
         }
+        System.out.println(bonDeLivraisonDocumentModel.getPersonId()+"****************");
         BonLivraisonDocument bonLivraisonDocument = this.mapper.convertToBonDeLivraisonDocumentEntity(bonDeLivraisonDocumentModel);
 
         this.bonDeLivraisonRepository.save(bonLivraisonDocument);
 
         return bonLivraisonDocument;
+    }
+    @GetMapping("/getById/{id}")
+    public BonDeLivraisonDocumentModel getBonLivraisonById(@PathVariable Long id){
+
+        BonLivraisonDocument bonLivraisonDocument = bonDeLivraisonRepository.findById(id).get();
+
+
+        return  this.mapper.convertToBonLivraisonDocumentModel(bonLivraisonDocument);
     }
 
     @PutMapping

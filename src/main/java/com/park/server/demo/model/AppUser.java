@@ -16,7 +16,9 @@ public class AppUser {
     @Column(unique = true)
     private String username;
     private String password;
-@ManyToMany(fetch=FetchType.EAGER)
+    private String email;
+
+    @ManyToMany(fetch=FetchType.EAGER)
 private Collection<AppRole> roles = new ArrayList<>();
 
     public Long getId() {
@@ -45,6 +47,14 @@ private Collection<AppRole> roles = new ArrayList<>();
 
     public Collection<AppRole> getRoles() {
         return roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setRoles(Collection<AppRole> roles) {

@@ -1,6 +1,9 @@
 package com.park.server.demo.model;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class FactureDocument extends EnteteDocument {
@@ -13,17 +16,32 @@ private String dateLimiteReglement;
 
 private String details;
 
-    public FactureDocument(Long id, String ref, String dateCreation, String lieuCreation) {
-        super(id, ref, dateCreation, lieuCreation);
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "factureDocument")
+    private Avoir avoir;
+
+    public FactureDocument() {
+        super();
     }
 
-    public FactureDocument(Long id, String ref, String dateCreation, String lieuCreation, String etat, float montantPaye, String modeReglement, String dateLimiteReglement, String details) {
-        super(id, ref, dateCreation, lieuCreation);
+
+    public FactureDocument(Long id, String ref, String dateCreation, String lieuCreation, Boolean achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String etat, float montantPaye, String modeReglement, String dateLimiteReglement, String details) {
+        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction);
         this.etat = etat;
         this.montantPaye = montantPaye;
         this.modeReglement = modeReglement;
         this.dateLimiteReglement = dateLimiteReglement;
         this.details = details;
+    }
+
+    public Avoir getAvoir() {
+        return avoir;
+    }
+
+    public void setAvoir(Avoir avoir) {
+        this.avoir = avoir;
     }
 
     public String getEtat() {
@@ -65,4 +83,6 @@ private String details;
     public void setDetails(String details) {
         this.details = details;
     }
+
+
 }

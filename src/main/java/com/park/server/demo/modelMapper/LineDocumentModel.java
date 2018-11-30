@@ -20,13 +20,21 @@ public class LineDocumentModel {
     private float totalTTC;
 
     private String enteteDocumentId;
-
+private int reduction;
     public Long getId_line() {
         return id_line;
     }
 
     public void setId_line(Long id_line) {
         this.id_line = id_line;
+    }
+
+    public int getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(int reduction) {
+        this.reduction = reduction;
     }
 
     public String getCode() {

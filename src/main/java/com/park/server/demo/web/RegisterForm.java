@@ -10,6 +10,7 @@ public class RegisterForm {
     private String username;
     private String password;
     private String repassword;
+    private String email;
 
     public String getUsername() {
         return username;
@@ -29,6 +30,14 @@ public class RegisterForm {
 
     public String getRepassword() {
         return repassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setRepassword(String repassword) {

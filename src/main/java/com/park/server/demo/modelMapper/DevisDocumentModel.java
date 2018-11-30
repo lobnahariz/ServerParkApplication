@@ -15,9 +15,75 @@ public class DevisDocumentModel {
 
     private int linesDocument;
 
-    private Long personneId;
+    private Long personId;
     private String delaiLivraisonSouhaite;
-    private Long bonDeLivraisonId;
+
+    private Boolean achat;
+
+    private float documenttotalHT;
+    private float documenttotalTVA;
+    private float documenttotalReduction;
+    private float documenttotalTTC;
+    private float documenttotalTTCReduction;
+
+    public DevisDocumentModel() {
+    }
+
+    public DevisDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String delaiLivraisonSouhaite, Boolean achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction) {
+        this.id = id;
+        this.ref = ref;
+        this.dateCreation = dateCreation;
+        this.lieuCreation = lieuCreation;
+        this.linesDocument = linesDocument;
+        this.personId = personId;
+        this.delaiLivraisonSouhaite = delaiLivraisonSouhaite;
+        this.achat = achat;
+        this.documenttotalHT = documenttotalHT;
+        this.documenttotalTVA = documenttotalTVA;
+        this.documenttotalReduction = documenttotalReduction;
+        this.documenttotalTTC = documenttotalTTC;
+        this.documenttotalTTCReduction = documenttotalTTCReduction;
+    }
+
+    public float getDocumenttotalHT() {
+        return documenttotalHT;
+    }
+
+    public void setDocumenttotalHT(float documenttotalHT) {
+        this.documenttotalHT = documenttotalHT;
+    }
+
+    public float getDocumenttotalTVA() {
+        return documenttotalTVA;
+    }
+
+    public void setDocumenttotalTVA(float documenttotalTVA) {
+        this.documenttotalTVA = documenttotalTVA;
+    }
+
+    public float getDocumenttotalReduction() {
+        return documenttotalReduction;
+    }
+
+    public void setDocumenttotalReduction(float documenttotalReduction) {
+        this.documenttotalReduction = documenttotalReduction;
+    }
+
+    public float getDocumenttotalTTC() {
+        return documenttotalTTC;
+    }
+
+    public void setDocumenttotalTTC(float documenttotalTTC) {
+        this.documenttotalTTC = documenttotalTTC;
+    }
+
+    public float getDocumenttotalTTCReduction() {
+        return documenttotalTTCReduction;
+    }
+
+    public void setDocumenttotalTTCReduction(float documenttotalTTCReduction) {
+        this.documenttotalTTCReduction = documenttotalTTCReduction;
+    }
 
     public Long getId() {
         return id;
@@ -27,6 +93,13 @@ public class DevisDocumentModel {
         this.id = id;
     }
 
+    public Boolean getAchat() {
+        return achat;
+    }
+
+    public void setAchat(Boolean achat) {
+        this.achat = achat;
+    }
 
     public String getRef() {
         return ref;
@@ -60,12 +133,12 @@ public class DevisDocumentModel {
         this.linesDocument = linesDocument;
     }
 
-    public Long getPersonneId() {
-        return personneId;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setPersonneId(Long personneId) {
-        this.personneId = personneId;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getDelaiLivraisonSouhaite() {
@@ -76,11 +149,5 @@ public class DevisDocumentModel {
         this.delaiLivraisonSouhaite = delaiLivraisonSouhaite;
     }
 
-    public Long getBonDeLivraisonId() {
-        return bonDeLivraisonId;
-    }
 
-    public void setBonDeLivraisonId(Long bonDeLivraisonId) {
-        this.bonDeLivraisonId = bonDeLivraisonId;
-    }
 }

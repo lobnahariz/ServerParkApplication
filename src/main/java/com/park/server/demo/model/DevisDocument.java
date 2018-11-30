@@ -10,18 +10,14 @@ public class DevisDocument extends EnteteDocument {
      private String delaiLivraisonSouhaite;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private BonLivraisonDocument bonLivraisonDocument;
 
     public DevisDocument() {
+        super();
     }
 
-    public DevisDocument(Long id, String ref, String dateCreation, String lieuCreation) {
-        super(id, ref, dateCreation, lieuCreation);
-    }
 
-    public DevisDocument(Long id, String ref, String dateCreation, String lieuCreation, String delaiLivraisonSouhaite) {
-        super(id,ref, dateCreation, lieuCreation);
+    public DevisDocument(Long id, String ref, String dateCreation, String lieuCreation, Boolean achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String delaiLivraisonSouhaite) {
+        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction);
         this.delaiLivraisonSouhaite = delaiLivraisonSouhaite;
     }
 
@@ -33,11 +29,5 @@ public class DevisDocument extends EnteteDocument {
         this.delaiLivraisonSouhaite = delaiLivraisonSouhaite;
     }
 
-    public BonLivraisonDocument getBonLivraisonDocument() {
-        return bonLivraisonDocument;
-    }
 
-    public void setBonLivraisonDocument(BonLivraisonDocument bonLivraisonDocument) {
-        this.bonLivraisonDocument = bonLivraisonDocument;
-    }
 }

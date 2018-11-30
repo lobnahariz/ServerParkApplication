@@ -2,11 +2,9 @@ package com.park.server.demo.modelMapper;
 
 import javax.validation.constraints.NotNull;
 
-public class EnteteDocumentModel {
+public class FactureDocumentModel {
 
     private Long id;
-
-    private String type;
 
     @NotNull
     private String ref;
@@ -17,7 +15,15 @@ public class EnteteDocumentModel {
 
     private int linesDocument;
 
-    private Long personneId;
+    private Long personId;
+    private String etat;
+    private float montantPaye;
+    private String modeReglement;
+
+    private String dateLimiteReglement;
+
+    private String details;
+
     private Boolean achat;
 
     private float documenttotalHT;
@@ -26,14 +32,21 @@ public class EnteteDocumentModel {
     private float documenttotalTTC;
     private float documenttotalTTCReduction;
 
-    public EnteteDocumentModel(Long id, String type, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personneId, Boolean achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction) {
+    public FactureDocumentModel() {
+    }
+
+    public FactureDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String etat, float montantPaye, String modeReglement, String dateLimiteReglement, String details, Boolean achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction) {
         this.id = id;
-        this.type = type;
         this.ref = ref;
         this.dateCreation = dateCreation;
         this.lieuCreation = lieuCreation;
         this.linesDocument = linesDocument;
-        this.personneId = personneId;
+        this.personId = personId;
+        this.etat = etat;
+        this.montantPaye = montantPaye;
+        this.modeReglement = modeReglement;
+        this.dateLimiteReglement = dateLimiteReglement;
+        this.details = details;
         this.achat = achat;
         this.documenttotalHT = documenttotalHT;
         this.documenttotalTVA = documenttotalTVA;
@@ -90,22 +103,6 @@ public class EnteteDocumentModel {
         this.id = id;
     }
 
-    public Boolean getAchat() {
-        return achat;
-    }
-
-    public void setAchat(Boolean achat) {
-        this.achat = achat;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getRef() {
         return ref;
     }
@@ -138,11 +135,59 @@ public class EnteteDocumentModel {
         this.linesDocument = linesDocument;
     }
 
-    public Long getPersonneId() {
-        return personneId;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setPersonneId(Long personneId) {
-        this.personneId = personneId;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public float getMontantPaye() {
+        return montantPaye;
+    }
+
+    public void setMontantPaye(float montantPaye) {
+        this.montantPaye = montantPaye;
+    }
+
+    public String getModeReglement() {
+        return modeReglement;
+    }
+
+    public void setModeReglement(String modeReglement) {
+        this.modeReglement = modeReglement;
+    }
+
+    public String getDateLimiteReglement() {
+        return dateLimiteReglement;
+    }
+
+    public void setDateLimiteReglement(String dateLimiteReglement) {
+        this.dateLimiteReglement = dateLimiteReglement;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public Boolean getAchat() {
+        return achat;
+    }
+
+    public void setAchat(Boolean achat) {
+        this.achat = achat;
     }
 }

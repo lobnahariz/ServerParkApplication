@@ -32,8 +32,8 @@ SpringApplication.run(ServerParkProjectApplication.class,args);
 
     @Override
     public void run(String... args) throws Exception {
-        accountService.saveUser(new AppUser(null,"admin","1234",null));
-        accountService.saveUser(new AppUser(null,"user","1234",null));
+        accountService.saveUser(new AppUser(null,"admin","1234",null,null));
+        accountService.saveUser(new AppUser(null,"user","1234",null,null));
 accountService.saveRole(new AppRole(null,"ADMIN"));
         accountService.saveRole(new AppRole(null,"USER"));
         accountService.addRoleToUSer("admin","ADMIN");

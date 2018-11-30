@@ -1,6 +1,7 @@
 package com.park.server.demo.controller;
 
 import com.park.server.demo.model.Produit;
+import com.park.server.demo.repository.ProduitRepository;
 import com.park.server.demo.service.IProduitService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +14,31 @@ import java.util.List;
 public class ProduitController {
 
     @Autowired
-private IProduitService produitService;
+private ProduitRepository produitRepository;
 
     @GetMapping("/api/produit")
     public List<Produit> getProduits(){
-         return  produitService.getProduits();
+         return  produitRepository.findAll();
     }
+
+
+    @GetMapping("/api/produit/getByRef/{ref}")
+    public Produit getProduit(@PathVariable String ref){
+System.out.println("Ref :    "+ref);
+        return  produitRepository.getProduitByRef(ref);
+    }
+
 
     @PostMapping("/api/produit")
     public void addProduit(@RequestBody Produit produit) {
-        produitService.addProduit(produit); }
+        produitRepository.save(produit); }
 
     @PutMapping("/api/produit")
     public void updateProduit(@RequestBody Produit produit){
-        produitService.updateProduit(produit);
+        produitRepository.save(produit);
     }
     @DeleteMapping("/api/produit/{id}")
     public void deleteProduit(@PathVariable Long id){
-        produitService.deleteProduit(id);
+        produitRepository.deleteById(id);
     }
 }
