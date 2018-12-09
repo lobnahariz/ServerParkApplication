@@ -1,9 +1,6 @@
 package com.park.server.demo;
 
-import com.park.server.demo.model.AppRole;
-import com.park.server.demo.model.AppUser;
-import com.park.server.demo.model.Produit;
-import com.park.server.demo.model.Task;
+import com.park.server.demo.model.*;
 import com.park.server.demo.repository.ProduitRepository;
 import com.park.server.demo.repository.TaskRepository;
 import com.park.server.demo.service.AccountService;
@@ -13,11 +10,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.stream.Stream;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class ServerParkProjectApplication implements CommandLineRunner {
 
     @Autowired
@@ -40,14 +39,6 @@ accountService.saveRole(new AppRole(null,"ADMIN"));
         accountService.addRoleToUSer("admin","USER");
         accountService.addRoleToUSer("user","USER");
 
-
-        Stream.of("T1","T2","T3").forEach(t->{
-taskRepository.save(new Task(null,t));
-        });
-
-        taskRepository.findAll().forEach(t->{
-            System.out.println(t.getTaskName());
-                });
 
     }
 

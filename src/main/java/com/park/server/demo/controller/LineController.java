@@ -49,7 +49,8 @@ public class LineController {
         return  lineDocuments;
     }
     @PostMapping("/{idEntete}")
-    public LineDocument addLineDocument(@PathVariable Long idEntete,@RequestBody LineDocumentModel lineDocumentModel, BindingResult bindingResult) {
+    public LineDocument addLineDocument(@PathVariable Long idEntete,@RequestBody LineDocumentModel lineDocumentModel,
+                                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             throw new ValidationException();
@@ -62,9 +63,17 @@ public class LineController {
     }
 
     @PutMapping
-    public void updateLineDocument(@RequestBody LineDocument lineDocument){
-        lineDocumentRepository.save(lineDocument);
-    }
+    public LineDocument updateLineDocument(@PathVariable Long idEntete ,@RequestBody LineDocumentModel lineDocumentModel,
+        BindingResult bindingResult) {
+            if (bindingResult.hasErrors()) {
+                throw new ValidationException();
+            }
+            LineDocument lineDocument =  this.mapper.convertToLineDocumentEntity(lineDocumentModel,idEntete);
+
+            this.lineDocumentRepository.saveAndFlush(lineDocument);
+        return lineDocument;
+
+        }
     @DeleteMapping("/{id}")
     public void deleteLineDocument(@PathVariable Long id){
         lineDocumentRepository.deleteById(id);

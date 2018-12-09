@@ -3,6 +3,7 @@ package com.park.server.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,7 @@ private String modeReglement;
 private String dateLimiteReglement;
 
 private String details;
+    private String modifierStock;
 
 
     @OneToOne(fetch = FetchType.LAZY,
@@ -27,13 +29,22 @@ private String details;
     }
 
 
-    public FactureDocument(Long id, String ref, String dateCreation, String lieuCreation, Boolean achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String etat, float montantPaye, String modeReglement, String dateLimiteReglement, String details) {
-        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction);
+    public FactureDocument(Long id, String ref, String dateCreation, String lieuCreation, String achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String etat, float montantPaye, String modeReglement, String dateLimiteReglement, String details, String createdBy, String modifiedBy, Date dateCreationAudit,String modifierStock) {
+        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction,createdBy,modifiedBy,dateCreationAudit);
         this.etat = etat;
         this.montantPaye = montantPaye;
         this.modeReglement = modeReglement;
         this.dateLimiteReglement = dateLimiteReglement;
         this.details = details;
+        this.modifierStock = modifierStock;
+    }
+
+    public String getModifierStock() {
+        return modifierStock;
+    }
+
+    public void setModifierStock(String modifierStock) {
+        this.modifierStock = modifierStock;
     }
 
     public Avoir getAvoir() {

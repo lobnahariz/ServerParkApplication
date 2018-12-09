@@ -32,15 +32,14 @@ public class AvoirController {
         return avoirRepository.findAll(); }
 
     @PostMapping
-    public Avoir addAvoir(@RequestBody AvoirModel avoirModel, BindingResult bindingResult) {
+    public void addAvoir(@RequestBody AvoirModel avoirModel, BindingResult bindingResult) {
             if (bindingResult.hasErrors()) {
                 throw new ValidationException();
             }
-        Avoir avoir = this.mapper.convertToAvoirEntity(avoirModel);
+    //    Avoir avoir = this.mapper.convertToAvoirEntity(avoirModel);
 
-            this.avoirRepository.save(avoir);
+            this.avoirRepository.save(null);
 
-            return avoir;
 
     }
 

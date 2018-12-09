@@ -1,6 +1,7 @@
 package com.park.server.demo.modelMapper;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class ClientModel {
 
@@ -21,6 +22,10 @@ public class ClientModel {
     private String rib;
     private String adresse;
 
+    private String createdBy;
+    private String modifiedBy;
+    private Date dateCreation;
+    private String ville;
     public Long getId() {
         return id;
     }
@@ -99,5 +104,37 @@ public class ClientModel {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
     }
 }

@@ -12,14 +12,14 @@ import java.util.Objects;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Produit {
+public class Reclamation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ref;
-    private int quantite;
-    private float prixUnitaire ;
+    private String titre;
+    private String description;
+    private String traitement;
 
 
     @CreatedDate
@@ -33,26 +33,7 @@ public class Produit {
     @LastModifiedBy
     private String modifiedBy;
 
-    public Produit() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produit produit = (Produit) o;
-        return Objects.equals(id, produit.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public Produit(String ref, int quantite, float prixUnitaire) {
-        this.ref = ref;
-        this.quantite = quantite;
-        this.prixUnitaire = prixUnitaire;
+    public Reclamation() {
     }
 
     public Long getId() {
@@ -63,28 +44,28 @@ public class Produit {
         this.id = id;
     }
 
-    public String getRef() {
-        return ref;
+    public String getTitre() {
+        return titre;
     }
 
-    public void setRef(String ref) {
-        this.ref = ref;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
-    public int getQuantite() {
-        return quantite;
+    public String getDescription() {
+        return description;
     }
 
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public float getPrixUnitaire() {
-        return prixUnitaire;
+    public String getTraitement() {
+        return traitement;
     }
 
-    public void setPrixUnitaire(float prixUnitaire) {
-        this.prixUnitaire = prixUnitaire;
+    public void setTraitement(String traitement) {
+        this.traitement = traitement;
     }
 
     public Date getDateCreationAudit() {

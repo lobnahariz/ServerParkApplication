@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import javax.transaction.Transactional;
 
 @Transactional
-public interface AvoirRepository extends JpaRepository<Avoir,Long> {
+public interface AvoirRepository extends EnteteDocumentBaseRepo<Avoir> {
 }

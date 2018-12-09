@@ -1,25 +1,27 @@
 package com.park.server.demo.model;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-public class Avoir {
+public class Avoir extends EnteteDocument{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_avoir;
-
-    private int quantite;
 private String description;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private FactureDocument factureDocument;
 
-    public Avoir(Long id,int quantite, String description, FactureDocument factureDocument) {
-      this.id_avoir =id;
-        this.quantite = quantite;
+    public Avoir(String description, FactureDocument factureDocument) {
+        this.description = description;
+        this.factureDocument = factureDocument;
+    }
+
+    public Avoir(Long id, String ref, String dateCreation, String lieuCreation, String achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String description, FactureDocument factureDocument, String createdBy, String modifiedBy, Date dateCreationAudit) {
+        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction,createdBy,modifiedBy,dateCreationAudit);
         this.description = description;
         this.factureDocument = factureDocument;
     }
@@ -30,22 +32,6 @@ private String description;
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getId_avoir() {
-        return id_avoir;
-    }
-
-    public void setId_avoir(Long id_avoir) {
-        this.id_avoir = id_avoir;
-    }
-
-    public int getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
     }
 
     public FactureDocument getFactureDocument() {

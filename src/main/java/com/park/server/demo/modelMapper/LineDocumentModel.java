@@ -1,6 +1,7 @@
 package com.park.server.demo.modelMapper;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class LineDocumentModel {
 
@@ -21,6 +22,10 @@ public class LineDocumentModel {
 
     private String enteteDocumentId;
 private int reduction;
+    private String createdBy;
+    private String modifiedBy;
+    private Date dateCreationAudit;
+
     public Long getId_line() {
         return id_line;
     }
@@ -87,6 +92,30 @@ private int reduction;
 
     public String getEnteteDocumentId() {
         return enteteDocumentId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getDateCreationAudit() {
+        return dateCreationAudit;
+    }
+
+    public void setDateCreationAudit(Date dateCreationAudit) {
+        this.dateCreationAudit = dateCreationAudit;
     }
 
     public void setEnteteDocumentId(String enteteDocumentId) {

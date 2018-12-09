@@ -3,13 +3,20 @@ package com.park.server.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class LineDocument {
 
     @Id
@@ -32,11 +39,22 @@ public class LineDocument {
     private EnteteDocument enteteDocument;
     private int reduction;
 
+    @CreatedDate
+    private Date dateCreationAudit;
+    @LastModifiedDate
+    private Date derniereDateModif;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
+
     public LineDocument() {
       //  this.id_line = UUID.randomUUID();
     }
 
-    public LineDocument(Long id, String code,int qte,float puHT,int tva,float totalHT,float totalTTC,EnteteDocument enteteDocument,int reduction) {
+    public LineDocument(Long id, String code,int qte,float puHT,int tva,float totalHT,float totalTTC,EnteteDocument enteteDocument,int reduction,String createdBy,String modifiedBy,Date dateCreationAudit) {
         this();
        /* if (id != null) {
             this.id_line = UUID.fromString(id);
@@ -50,6 +68,9 @@ public class LineDocument {
         this.totalTTC = totalTTC;
         this.enteteDocument = enteteDocument;
         this.reduction = reduction;
+        this.createdBy=createdBy;
+        this.modifiedBy=modifiedBy;
+        this.dateCreationAudit=dateCreationAudit;
     }
 
     public Long getId_line() {
@@ -122,5 +143,38 @@ public class LineDocument {
 
     public void setEnteteDocument(EnteteDocument enteteDocument) {
         this.enteteDocument = enteteDocument;
+
+    }
+
+    public Date getDateCreationAudit() {
+        return dateCreationAudit;
+    }
+
+    public void setDateCreationAudit(Date dateCreationAudit) {
+        this.dateCreationAudit = dateCreationAudit;
+    }
+
+    public Date getDerniereDateModif() {
+        return derniereDateModif;
+    }
+
+    public void setDerniereDateModif(Date derniereDateModif) {
+        this.derniereDateModif = derniereDateModif;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 }

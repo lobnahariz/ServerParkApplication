@@ -37,11 +37,16 @@ public class FournisseurController {
 
     @PutMapping
     public void updateFournisseur(@RequestBody Fournisseur fournisseur){
-        fournisseurRepository.save(fournisseur);
+        fournisseurRepository.saveAndFlush(fournisseur);
     }
     @DeleteMapping("/{id}")
     public void deleteFournisseur(@PathVariable Long id){
         fournisseurRepository.deleteById(id);
     }
 
+    @GetMapping("/getById/{id}")
+    public Fournisseur getFournisseurById(@PathVariable Long id){
+
+        return fournisseurRepository.findById(id).get();
+    }
 }

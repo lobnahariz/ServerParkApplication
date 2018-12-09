@@ -1,6 +1,7 @@
 package com.park.server.demo.modelMapper;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class DevisDocumentModel {
 
@@ -18,18 +19,20 @@ public class DevisDocumentModel {
     private Long personId;
     private String delaiLivraisonSouhaite;
 
-    private Boolean achat;
+    private String achat;
 
     private float documenttotalHT;
     private float documenttotalTVA;
     private float documenttotalReduction;
     private float documenttotalTTC;
     private float documenttotalTTCReduction;
-
+    private String createdBy;
+    private String modifiedBy;
+    private Date dateCreationAudit;
     public DevisDocumentModel() {
     }
 
-    public DevisDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String delaiLivraisonSouhaite, Boolean achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction) {
+    public DevisDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String delaiLivraisonSouhaite, String achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction,String createdBy,String modifiedBy,Date dateCreationAudit) {
         this.id = id;
         this.ref = ref;
         this.dateCreation = dateCreation;
@@ -43,7 +46,11 @@ public class DevisDocumentModel {
         this.documenttotalReduction = documenttotalReduction;
         this.documenttotalTTC = documenttotalTTC;
         this.documenttotalTTCReduction = documenttotalTTCReduction;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.dateCreationAudit = dateCreationAudit;
     }
+
 
     public float getDocumenttotalHT() {
         return documenttotalHT;
@@ -93,11 +100,11 @@ public class DevisDocumentModel {
         this.id = id;
     }
 
-    public Boolean getAchat() {
+    public String getAchat() {
         return achat;
     }
 
-    public void setAchat(Boolean achat) {
+    public void setAchat(String achat) {
         this.achat = achat;
     }
 
@@ -149,5 +156,27 @@ public class DevisDocumentModel {
         this.delaiLivraisonSouhaite = delaiLivraisonSouhaite;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getDateCreationAudit() {
+        return dateCreationAudit;
+    }
+
+    public void setDateCreationAudit(Date dateCreationAudit) {
+        this.dateCreationAudit = dateCreationAudit;
+    }
 }

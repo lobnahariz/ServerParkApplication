@@ -1,6 +1,7 @@
 package com.park.server.demo.modelMapper;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class EnteteDocumentModel {
 
@@ -25,8 +26,10 @@ public class EnteteDocumentModel {
     private float documenttotalReduction;
     private float documenttotalTTC;
     private float documenttotalTTCReduction;
-
-    public EnteteDocumentModel(Long id, String type, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personneId, Boolean achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction) {
+    private String createdBy;
+    private String modifiedBy;
+    private Date dateCreationAudit;
+    public EnteteDocumentModel(Long id, String type, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personneId, Boolean achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction,String createdBy,String modifiedBy,Date dateCreationAudit) {
         this.id = id;
         this.type = type;
         this.ref = ref;
@@ -40,6 +43,33 @@ public class EnteteDocumentModel {
         this.documenttotalReduction = documenttotalReduction;
         this.documenttotalTTC = documenttotalTTC;
         this.documenttotalTTCReduction = documenttotalTTCReduction;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.dateCreationAudit = dateCreationAudit;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getDateCreationAudit() {
+        return dateCreationAudit;
+    }
+
+    public void setDateCreationAudit(Date dateCreationAudit) {
+        this.dateCreationAudit = dateCreationAudit;
     }
 
     public float getDocumenttotalHT() {

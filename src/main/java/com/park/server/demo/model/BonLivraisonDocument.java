@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,8 +27,8 @@ private String receptionPersonne;
         this.receptionPersonne = receptionPersonne;
     }
 
-    public BonLivraisonDocument(Long id, String ref, String dateCreation, String lieuCreation, Boolean achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, boolean accuse_reception, String receptionDate, String receptionPersonne) {
-        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction);
+    public BonLivraisonDocument(Long id, String ref, String dateCreation, String lieuCreation, String achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, boolean accuse_reception, String receptionDate, String receptionPersonne, String createdBy, String modifiedBy, Date dateCreationAudit) {
+        super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction,createdBy,modifiedBy,dateCreationAudit);
         this.accuse_reception = accuse_reception;
         this.receptionDate = receptionDate;
         this.receptionPersonne = receptionPersonne;

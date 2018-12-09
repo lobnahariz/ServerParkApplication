@@ -1,6 +1,7 @@
 package com.park.server.demo.modelMapper;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class BonDeLivraisonDocumentModel {
 
@@ -14,23 +15,24 @@ public class BonDeLivraisonDocumentModel {
     private String lieuCreation;
 
     private int linesDocument;
-    private Boolean achat;
+    private String achat;
 
     private Long personId;
     private boolean accuse_reception;
     private String receptionDate;
     private String receptionPersonne;
-
     private float documenttotalHT;
     private float documenttotalTVA;
     private float documenttotalReduction;
     private float documenttotalTTC;
     private float documenttotalTTCReduction;
-
+    private String createdBy;
+    private String modifiedBy;
+    private Date dateCreationAudit;
     public BonDeLivraisonDocumentModel() {
     }
 
-    public BonDeLivraisonDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Boolean achat, Long personId, boolean accuse_reception, String receptionDate, String receptionPersonne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction) {
+    public BonDeLivraisonDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, String achat, Long personId, boolean accuse_reception, String receptionDate, String receptionPersonne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction,String createdBy,String modifiedBy,Date dateCreationAudit) {
         this.id = id;
         this.ref = ref;
         this.dateCreation = dateCreation;
@@ -46,7 +48,11 @@ public class BonDeLivraisonDocumentModel {
         this.documenttotalReduction = documenttotalReduction;
         this.documenttotalTTC = documenttotalTTC;
         this.documenttotalTTCReduction = documenttotalTTCReduction;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.dateCreationAudit = dateCreationAudit;
     }
+
 
     public float getDocumenttotalHT() {
         return documenttotalHT;
@@ -109,11 +115,11 @@ public class BonDeLivraisonDocumentModel {
         return dateCreation;
     }
 
-    public Boolean getAchat() {
+    public String getAchat() {
         return achat;
     }
 
-    public void setAchat(Boolean achat) {
+    public void setAchat(String achat) {
         this.achat = achat;
     }
 
@@ -171,5 +177,29 @@ public class BonDeLivraisonDocumentModel {
 
     public void setReceptionPersonne(String receptionPersonne) {
         this.receptionPersonne = receptionPersonne;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getDateCreationAudit() {
+        return dateCreationAudit;
+    }
+
+    public void setDateCreationAudit(Date dateCreationAudit) {
+        this.dateCreationAudit = dateCreationAudit;
     }
 }

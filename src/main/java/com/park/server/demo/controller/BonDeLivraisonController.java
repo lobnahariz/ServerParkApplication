@@ -49,7 +49,6 @@ public class BonDeLivraisonController {
         if (bindingResult.hasErrors()) {
             throw new ValidationException();
         }
-        System.out.println(bonDeLivraisonDocumentModel.getPersonId()+"****************");
         BonLivraisonDocument bonLivraisonDocument = this.mapper.convertToBonDeLivraisonDocumentEntity(bonDeLivraisonDocumentModel);
 
         this.bonDeLivraisonRepository.save(bonLivraisonDocument);
@@ -66,9 +65,17 @@ public class BonDeLivraisonController {
     }
 
     @PutMapping
-    public void updateBonLivraison(@RequestBody BonLivraisonDocument bonLivraisonDocument){
-        bonDeLivraisonRepository.save(bonLivraisonDocument);
-    }
+    public void updateBonLivraison(@RequestBody BonDeLivraisonDocumentModel bonDeLivraisonDocumentModel,
+        BindingResult bindingResult) {
+
+            if (bindingResult.hasErrors()) {
+                throw new ValidationException();
+            }
+            BonLivraisonDocument bonLivraisonDocument = this.mapper.convertToBonDeLivraisonDocumentEntity(bonDeLivraisonDocumentModel);
+
+            this.bonDeLivraisonRepository.saveAndFlush(bonLivraisonDocument);
+
+        }
     @DeleteMapping("/{id}")
     public void deleteBonLivraison(@PathVariable Long id){
         bonDeLivraisonRepository.deleteById(id);

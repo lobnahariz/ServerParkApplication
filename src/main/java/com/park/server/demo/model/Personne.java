@@ -1,13 +1,20 @@
 package com.park.server.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Inheritance
 @DiscriminatorColumn(name = "genre")
+@EntityListeners(AuditingEntityListener.class)
 public abstract class Personne {
 
     @Id
@@ -23,7 +30,17 @@ public abstract class Personne {
     private String telephonePortable;
     private String rib;
     private String adresse;
+    private String ville;
+    @CreatedDate
+    private Date dateCreation;
+    @LastModifiedDate
+    private Date derniereDateModif;
 
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
     @OneToMany(mappedBy = "personne", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     List<EnteteDocument> personneDocuments;
@@ -31,7 +48,7 @@ public abstract class Personne {
     public Personne() {
     }
 
-    public Personne(Long id, String libelle, String nom, String prenom, String nomSociete, String mail, String telephoneFixe, String telephonePortable, String rib, String adresse) {
+    public Personne(Long id, String libelle, String nom, String prenom, String nomSociete, String mail, String telephoneFixe, String telephonePortable, String rib, String adresse,String createdBy,String modifiedBy,Date dateCreation,String ville) {
        this.id=id;
         this.libelle = libelle;
         this.nom = nom;
@@ -42,6 +59,10 @@ public abstract class Personne {
         this.telephonePortable = telephonePortable;
         this.rib = rib;
         this.adresse = adresse;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.dateCreation = dateCreation;
+        this.ville=ville;
     }
 
     public Long getId() {
@@ -130,5 +151,45 @@ public abstract class Personne {
 
     public void setPersonneDocuments(List<EnteteDocument> personneDocuments) {
         this.personneDocuments = personneDocuments;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getDerniereDateModif() {
+        return derniereDateModif;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public void setDerniereDateModif(Date derniereDateModif) {
+        this.derniereDateModif = derniereDateModif;
     }
 }

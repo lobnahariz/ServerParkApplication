@@ -58,7 +58,6 @@ public class DevisController {
         if (bindingResult.hasErrors()) {
             throw new ValidationException();
         }
-
         DevisDocument devisDocument = this.mapper.convertToDevisDocumentEntity(devisDocumentModel);
 
         this.devisRepository.save(devisDocument);
@@ -67,8 +66,16 @@ public class DevisController {
     }
 
     @PutMapping
-    public void updateDevis(@RequestBody DevisDocument devisDocument){
-        devisRepository.save(devisDocument);
+    public void updateDevis(@RequestBody DevisDocumentModel devisDocumentModel, BindingResult bindingResult)
+    {
+
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException();
+        }
+        DevisDocument devisDocument = this.mapper.convertToDevisDocumentEntity(devisDocumentModel);
+
+        this.devisRepository.saveAndFlush(devisDocument);
+
     }
     @DeleteMapping("/{id}")
     public void deleteDevis(@PathVariable Long id){

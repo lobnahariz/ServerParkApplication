@@ -8,8 +8,8 @@ import com.park.server.demo.repository.FactureRepository;
 import com.park.server.demo.repository.FournisseurRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Component
 public class Mapper {
@@ -33,7 +33,7 @@ FactureRepository factureRepository;
         Personne personne;
         DevisDocument entity;
         if(viewModel.getAchat()!= null){
-            if( viewModel.getAchat()){
+            if( viewModel.getAchat().equals("Achat")){
                 personne= fournisseurRepository.findById(viewModel.getPersonId()).get();
             }else{
                 personne= clientRepository.findById(viewModel.getPersonId()).get();
@@ -44,12 +44,15 @@ FactureRepository factureRepository;
                      viewModel.getLieuCreation(),
                      viewModel.getAchat(),
                      personne,
-                     viewModel.getDocumenttotalHT(),
-                     viewModel.getDocumenttotalTVA(),
-                     viewModel.getDocumenttotalReduction(),
-                     viewModel.getDocumenttotalTTC(),
-                     viewModel.getDocumenttotalTTCReduction(),
-                     viewModel.getDelaiLivraisonSouhaite()
+                     round(viewModel.getDocumenttotalHT(),3),
+                     round(viewModel.getDocumenttotalTVA(),3),
+                     round(viewModel.getDocumenttotalReduction(),3),
+                     round(viewModel.getDocumenttotalTTC(),3),
+                     round(viewModel.getDocumenttotalTTCReduction(),3),
+                     viewModel.getDelaiLivraisonSouhaite(),
+                     viewModel.getCreatedBy(),
+                     viewModel.getModifiedBy(),
+                     viewModel.getDateCreationAudit()
              );
 
         }else{
@@ -59,12 +62,15 @@ FactureRepository factureRepository;
                     viewModel.getLieuCreation(),
                     viewModel.getAchat(),
                     null,
-                    viewModel.getDocumenttotalHT(),
-                    viewModel.getDocumenttotalTVA(),
-                    viewModel.getDocumenttotalReduction(),
-                    viewModel.getDocumenttotalTTC(),
-                    viewModel.getDocumenttotalTTCReduction(),
-                    viewModel.getDelaiLivraisonSouhaite()
+                    round(viewModel.getDocumenttotalHT(),3),
+                    round(viewModel.getDocumenttotalTVA(),3),
+                    round(viewModel.getDocumenttotalReduction(),3),
+                    round(viewModel.getDocumenttotalTTC(),3),
+                    round(viewModel.getDocumenttotalTTCReduction(),3),
+                    viewModel.getDelaiLivraisonSouhaite(),
+                    viewModel.getCreatedBy(),
+                    viewModel.getModifiedBy(),
+                    viewModel.getDateCreationAudit()
             );
         }
 
@@ -88,7 +94,11 @@ FactureRepository factureRepository;
                 x.getDocumenttotalTVA(),
                 x.getDocumenttotalReduction(),
                 x.getDocumenttotalTTC(),
-                x.getDocumenttotalTTCReduction());
+                x.getDocumenttotalTTCReduction(),
+                        x.getCreatedBy(),
+                        x.getModifiedBy(),
+                        x.getDateCreationAudit()
+                        );
                 this.liste.add(model);
         });
 
@@ -111,7 +121,11 @@ FactureRepository factureRepository;
                 bonLivraisonDocument.getDocumenttotalTVA(),
                 bonLivraisonDocument.getDocumenttotalReduction(),
                 bonLivraisonDocument.getDocumenttotalTTC(),
-                bonLivraisonDocument.getDocumenttotalTTCReduction());
+                bonLivraisonDocument.getDocumenttotalTTCReduction(),
+                bonLivraisonDocument.getCreatedBy(),
+                bonLivraisonDocument.getModifiedBy(),
+                bonLivraisonDocument.getDateCreationAudit()
+                );
 
         return model;
     }
@@ -131,19 +145,26 @@ FactureRepository factureRepository;
                     devisDocument.getDocumenttotalTVA(),
                     devisDocument.getDocumenttotalReduction(),
                     devisDocument.getDocumenttotalTTC(),
-                    devisDocument.getDocumenttotalTTCReduction());
+                    devisDocument.getDocumenttotalTTCReduction(),
+                    devisDocument.getCreatedBy(),
+                    devisDocument.getModifiedBy(),
+                    devisDocument.getDateCreationAudit());
 
 
    return model;
     }
-
+    public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
 
     public BonLivraisonDocument convertToBonDeLivraisonDocumentEntity(BonDeLivraisonDocumentModel viewModel) {
 
         Personne personne;
         BonLivraisonDocument entity;
         if(viewModel.getAchat()!= null){
-            if( viewModel.getAchat()){
+            if( viewModel.getAchat().equals("Achat")){
                 personne= fournisseurRepository.findById(viewModel.getPersonId()).get();
             }else{
                 personne= clientRepository.findById(viewModel.getPersonId()).get();
@@ -154,14 +175,17 @@ FactureRepository factureRepository;
                  viewModel.getLieuCreation(),
                  viewModel.getAchat(),
                  personne,
-                 viewModel.getDocumenttotalHT(),
-                 viewModel.getDocumenttotalTVA(),
-                 viewModel.getDocumenttotalReduction(),
-                 viewModel.getDocumenttotalTTC(),
-                 viewModel.getDocumenttotalTTCReduction(),
+                 round(viewModel.getDocumenttotalHT(),3),
+                 round(viewModel.getDocumenttotalTVA(),3),
+                 round(viewModel.getDocumenttotalReduction(),3),
+                 round(viewModel.getDocumenttotalTTC(),3),
+                 round(viewModel.getDocumenttotalTTCReduction(),3),
                  viewModel.getAccuse_reception(),
                  viewModel.getReceptionDate(),
-                 viewModel.getReceptionPersonne()
+                 viewModel.getReceptionPersonne(),
+                 viewModel.getCreatedBy(),
+                 viewModel.getModifiedBy(),
+                 viewModel.getDateCreationAudit()
                  );
 
 
@@ -172,14 +196,18 @@ FactureRepository factureRepository;
                     viewModel.getLieuCreation(),
                     viewModel.getAchat(),
                     null,
-                    viewModel.getDocumenttotalHT(),
-                    viewModel.getDocumenttotalTVA(),
-                    viewModel.getDocumenttotalReduction(),
-                    viewModel.getDocumenttotalTTC(),
-                    viewModel.getDocumenttotalTTCReduction(),
+                    round(viewModel.getDocumenttotalHT(),3),
+                    round(viewModel.getDocumenttotalTVA(),3),
+                    round(viewModel.getDocumenttotalReduction(),3),
+                    round(viewModel.getDocumenttotalTTC(),3),
+                    round(viewModel.getDocumenttotalTTCReduction(),3),
                     viewModel.getAccuse_reception(),
                     viewModel.getReceptionDate(),
-                    viewModel.getReceptionPersonne()
+                    viewModel.getReceptionPersonne(),
+                    viewModel.getCreatedBy(),
+                    viewModel.getModifiedBy(),
+                    viewModel.getDateCreationAudit()
+
             );
         }
 
@@ -188,22 +216,89 @@ FactureRepository factureRepository;
 
 
     public Client convertToClientEntity(ClientModel viewModel) {
-        Client entity = new Client(viewModel.getId(),viewModel.getLibelle(),viewModel.getNom(),viewModel.getPrenom(),viewModel.getNomSociete(),viewModel.getMail(),viewModel.getTelephoneFixe(),viewModel.getTelephonePortable(),viewModel.getRib(),viewModel.getAdresse());
+       // DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Client entity = new Client(viewModel.getId(),viewModel.getLibelle(),viewModel.getNom(),viewModel.getPrenom(),viewModel.getNomSociete(),viewModel.getMail(),viewModel.getTelephoneFixe(),viewModel.getTelephonePortable(),viewModel.getRib(),viewModel.getAdresse(),viewModel.getCreatedBy(),viewModel.getModifiedBy(),viewModel.getDateCreation(),viewModel.getVille());
 
         return entity;
     }
+public List<ChartMapModel> convertTochartModel(Map<String,Float> liste){
+        List<ChartMapModel> listeModel=new ArrayList<>();
+        liste.forEach((x,y)->{
+            ChartMapModel chartMapModel=new ChartMapModel();
+            chartMapModel.setNom(x);
+            chartMapModel.setNombre(y);
+            listeModel.add(chartMapModel);
+        });
+        return listeModel;
+}
 
-    public Avoir convertToAvoirEntity(AvoirModel viewModel) {
+   /* public Avoir convertToAvoirEntity(AvoirModel viewModel) {
 
-        FactureDocument factureDocument = factureRepository.findById(viewModel.getId_avoir()).get();
+        Personne personne;
+        Avoir entity;
+        if(viewModel.getAchat()!= null){
+            if( viewModel.getAchat()){
+                personne= fournisseurRepository.findById(viewModel.getPersonId()).get();
+            }else{
+                personne= clientRepository.findById(viewModel.getPersonId()).get();
+            }
+            entity = new Avoir( viewModel.getId(),
+                    viewModel.getRef(),
+                    viewModel.getDateCreation(),
+                    viewModel.getLieuCreation(),
+                    viewModel.getAchat(),
+                    personne,
+                    viewModel.getDocumenttotalHT(),
+                    viewModel.getDocumenttotalTVA(),
+                    viewModel.getDocumenttotalReduction(),
+                    viewModel.getDocumenttotalTTC(),
+                    viewModel.getDocumenttotalTTCReduction(),
+                    viewModel.getEtat(),
+                    viewModel.getMontantPaye(),
+                    viewModel.getModeReglement(),
+                    viewModel.getDateLimiteReglement(),
+                    viewModel.getDetails()
+            );
+        }else{
+            entity = new Avoir( viewModel.getId(),
+                    viewModel.getRef(),
+                    viewModel.getDateCreation(),
+                    viewModel.getLieuCreation(),
+                    viewModel.getAchat(),
+                    null,
+                    viewModel.getDocumenttotalHT(),
+                    viewModel.getDocumenttotalTVA(),
+                    viewModel.getDocumenttotalReduction(),
+                    viewModel.getDocumenttotalTTC(),
+                    viewModel.getDocumenttotalTTCReduction(),
+                    viewModel.getEtat(),
+                    viewModel.getMontantPaye(),
+                    viewModel.getModeReglement(),
+                    viewModel.getDateLimiteReglement(),
+                    viewModel.getDetails()
+            );
 
-        Avoir entity = new Avoir(viewModel.getId_avoir(),viewModel.getQuantite(),viewModel.getDescription(),factureDocument);
+        }
+
         return entity;
     }
+*/
 
     public LineDocument convertToLineDocumentEntity(LineDocumentModel viewModel,Long idEntete) {
         EnteteDocument enteteDocument = enteteDocumentRepository.findById(idEntete).get();
-        LineDocument entity = new LineDocument(viewModel.getId_line(), viewModel.getCode(),viewModel.getQte(),viewModel.getPuHT(),viewModel.getTva(),viewModel.getTotalHT(),viewModel.getTotalTTC(),enteteDocument,viewModel.getReduction());
+        LineDocument entity = new LineDocument(viewModel.getId_line(),
+                viewModel.getCode(),
+                viewModel.getQte(),
+                viewModel.getPuHT(),
+                viewModel.getTva(),
+                viewModel.getTotalHT(),
+                viewModel.getTotalTTC(),
+                enteteDocument,
+                viewModel.getReduction(),
+                viewModel.getCreatedBy(),
+                viewModel.getModifiedBy(),
+                viewModel.getDateCreationAudit()
+        );
 
         return entity;
     }
@@ -211,6 +306,7 @@ FactureRepository factureRepository;
 
     ////////////////////Facture
     public List<FactureDocumentModel> convertToFactureDocumentModel(List<FactureDocument> factureDocuments){
+      this.listeFacture =new ArrayList<>();
         factureDocuments.forEach( x ->{
             FactureDocumentModel model = new FactureDocumentModel(x.getId(),
                     x.getRef(),
@@ -228,7 +324,12 @@ FactureRepository factureRepository;
                     x.getDocumenttotalTVA(),
                     x.getDocumenttotalReduction(),
                     x.getDocumenttotalTTC(),
-                    x.getDocumenttotalTTCReduction());
+                    x.getDocumenttotalTTCReduction(),
+                    x.getCreatedBy(),
+                    x.getModifiedBy(),
+                    x.getDateCreationAudit(),
+                    x.getModifierStock()
+            );
 
             this.listeFacture.add(model);
         });
@@ -236,7 +337,34 @@ FactureRepository factureRepository;
         return listeFacture;
     }
 
+    public FactureDocumentModel convertToFactureDocumentByIdModel(FactureDocument factureDocuments){
 
+            FactureDocumentModel model = new FactureDocumentModel(factureDocuments.getId(),
+                    factureDocuments.getRef(),
+                    factureDocuments.getDateCreation(),
+                    factureDocuments.getLieuCreation(),
+                    factureDocuments.getLinesDocument().size(),
+                    factureDocuments.getPersonne().getId(),
+                    factureDocuments.getEtat(),
+                    factureDocuments.getMontantPaye(),
+                    factureDocuments.getModeReglement(),
+                    factureDocuments.getDateLimiteReglement(),
+                    factureDocuments.getDetails(),
+                    factureDocuments.getAchat(),
+                    factureDocuments.getDocumenttotalHT(),
+                    factureDocuments.getDocumenttotalTVA(),
+                    factureDocuments.getDocumenttotalReduction(),
+                    factureDocuments.getDocumenttotalTTC(),
+                    factureDocuments.getDocumenttotalTTCReduction(),
+                    factureDocuments.getCreatedBy(),
+                    factureDocuments.getModifiedBy(),
+                    factureDocuments.getDateCreationAudit(),
+                    factureDocuments.getModifierStock()
+            );
+
+
+        return model;
+    }
 
 
     public FactureDocument convertToFactureDocumentEntity(FactureDocumentModel viewModel) {
@@ -244,7 +372,7 @@ FactureRepository factureRepository;
         Personne personne;
         FactureDocument entity;
         if(viewModel.getAchat()!= null){
-            if( viewModel.getAchat()){
+            if( viewModel.getAchat().equals("Achat")){
                 personne= fournisseurRepository.findById(viewModel.getPersonId()).get();
             }else{
                 personne= clientRepository.findById(viewModel.getPersonId()).get();
@@ -255,17 +383,21 @@ FactureRepository factureRepository;
                     viewModel.getLieuCreation(),
                     viewModel.getAchat(),
                     personne,
-viewModel.getDocumenttotalHT(),
-                    viewModel.getDocumenttotalTVA(),
-                    viewModel.getDocumenttotalReduction(),
-                    viewModel.getDocumenttotalTTC(),
-                    viewModel.getDocumenttotalTTCReduction(),
+                    round(viewModel.getDocumenttotalHT(),3),
+                    round(viewModel.getDocumenttotalTVA(),3),
+                    round(viewModel.getDocumenttotalReduction(),3),
+                    round(viewModel.getDocumenttotalTTC(),3),
+                    round(viewModel.getDocumenttotalTTCReduction(),3),
                     viewModel.getEtat(),
                     viewModel.getMontantPaye(),
                     viewModel.getModeReglement(),
                     viewModel.getDateLimiteReglement(),
-                    viewModel.getDetails()
-                    );
+                    viewModel.getDetails(),
+                    viewModel.getCreatedBy(),
+                    viewModel.getModifiedBy(),
+                    viewModel.getDateCreationAudit(),
+                    viewModel.getModifierStock()
+            );
         }else{
             entity = new FactureDocument( viewModel.getId(),
                     viewModel.getRef(),
@@ -273,16 +405,21 @@ viewModel.getDocumenttotalHT(),
                     viewModel.getLieuCreation(),
                     viewModel.getAchat(),
                     null,
-                    viewModel.getDocumenttotalHT(),
-                    viewModel.getDocumenttotalTVA(),
-                    viewModel.getDocumenttotalReduction(),
-                    viewModel.getDocumenttotalTTC(),
-                    viewModel.getDocumenttotalTTCReduction(),
+                    round(viewModel.getDocumenttotalHT(),3),
+                    round(viewModel.getDocumenttotalTVA(),3),
+                    round(viewModel.getDocumenttotalReduction(),3),
+                    round(viewModel.getDocumenttotalTTC(),3),
+                    round(viewModel.getDocumenttotalTTCReduction(),3),
                     viewModel.getEtat(),
                     viewModel.getMontantPaye(),
                     viewModel.getModeReglement(),
                     viewModel.getDateLimiteReglement(),
-                    viewModel.getDetails()
+                    viewModel.getDetails(),
+                    viewModel.getCreatedBy(),
+                    viewModel.getModifiedBy(),
+                    viewModel.getDateCreationAudit(),
+                    viewModel.getModifierStock()
+
             );
 
         }
