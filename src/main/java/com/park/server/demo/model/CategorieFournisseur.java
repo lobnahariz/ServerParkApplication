@@ -1,5 +1,6 @@
 package com.park.server.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -8,23 +9,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Reclamation {
+public class CategorieFournisseur {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String titre;
-    private String description;
-    private String valide;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idCategorie;
 
+    private String nom;
+    private String description;
+
+    @OneToMany(mappedBy = "categorieFournisseur", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    List<Fournisseur> fournisseurList;
 
     @CreatedDate
-    private Date dateCreationAudit;
+    private Date dateCreation;
     @LastModifiedDate
+
     private Date derniereDateModif;
 
     @CreatedBy
@@ -33,23 +38,20 @@ public class Reclamation {
     @LastModifiedBy
     private String modifiedBy;
 
-    public Reclamation() {
+    public Long getIdCategorie() {
+        return idCategorie;
     }
 
-    public Long getId() {
-        return id;
+    public void setIdCategorie(Long idCategorie) {
+        this.idCategorie = idCategorie;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getNom() {
+        return nom;
     }
 
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getDescription() {
@@ -60,20 +62,20 @@ public class Reclamation {
         this.description = description;
     }
 
-    public String getValide() {
-        return valide;
+    public List<Fournisseur> getFournisseurList() {
+        return fournisseurList;
     }
 
-    public void setValide(String valide) {
-        this.valide = valide;
+    public void setFournisseurList(List<Fournisseur> fournisseurList) {
+        this.fournisseurList = fournisseurList;
     }
 
-    public Date getDateCreationAudit() {
-        return dateCreationAudit;
+    public Date getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDateCreationAudit(Date dateCreationAudit) {
-        this.dateCreationAudit = dateCreationAudit;
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
     public Date getDerniereDateModif() {

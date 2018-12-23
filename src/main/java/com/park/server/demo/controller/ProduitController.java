@@ -1,11 +1,13 @@
 package com.park.server.demo.controller;
 
+import com.park.server.demo.mapper.Mapper;
 import com.park.server.demo.model.Client;
 import com.park.server.demo.model.FactureDocument;
 import com.park.server.demo.model.LineDocument;
 import com.park.server.demo.model.Produit;
 import com.park.server.demo.modelMapper.ChartMapModel;
 import com.park.server.demo.modelMapper.ChartWithDateMapModel;
+import com.park.server.demo.modelMapper.ProduitModel;
 import com.park.server.demo.repository.FactureRepository;
 import com.park.server.demo.repository.ProduitRepository;
 import com.park.server.demo.service.IProduitService;
@@ -18,16 +20,23 @@ import java.util.*;
 
 @RestController
 public class ProduitController {
-
+    private Mapper mapper;
     @Autowired
 private ProduitRepository produitRepository;
     int somme =0;
     List<ChartWithDateMapModel> chartWithDateMapModels=new ArrayList<>();
     @Autowired
     private FactureRepository factureRepository;
+
+    public ProduitController(Mapper mapper) {
+        this.mapper = mapper;
+    }
+
     @GetMapping("/api/produit")
-    public List<Produit> getProduits(){
-         return  produitRepository.findAll();
+    public List<ProduitModel> getProduits(){
+
+
+        return  this.mapper.convertAllProduit();
     }
 
 
@@ -56,13 +65,20 @@ private ProduitRepository produitRepository;
     }
 
     @PostMapping("/api/produit")
-    public void addProduit(@RequestBody Produit produit) {
+    public void addProduit(@RequestBody ProduitModel produit) {
 
-        produitRepository.save(produit); }
+        Produit produitN = this.mapper.convertToProduitEntity(produit);
+
+        this.produitRepository.save(produitN);
+
+         }
 
     @PutMapping("/api/produit")
-    public void updateProduit(@RequestBody Produit produit){
-        produitRepository.saveAndFlush(produit);
+    public void updateProduit(@RequestBody ProduitModel produit){
+
+        Produit produitN = this.mapper.convertToProduitEntity(produit);
+
+        this.produitRepository.saveAndFlush(produitN);
     }
     @DeleteMapping("/api/produit/{id}")
     public void deleteProduit(@PathVariable Long id){

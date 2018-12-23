@@ -3,7 +3,8 @@ package com.park.server.demo.modelMapper;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class FactureDocumentModel {
+public class ReparationModel {
+
 
     private Long id;
 
@@ -17,42 +18,40 @@ public class FactureDocumentModel {
     private int linesDocument;
 
     private Long personId;
-    private String etat;
-    private float montantPaye;
-    private String modeReglement;
-
-    private String dateLimiteReglement;
-
-    private String details;
 
     private String achat;
-private  String modifierStock;
+    private String description;
+
     private float documenttotalHT;
     private float documenttotalTVA;
     private float documenttotalReduction;
     private float documenttotalTTC;
     private float documenttotalTTCReduction;
+
     private String createdBy;
     private String modifiedBy;
     private Date dateCreationAudit;
-    private Date derniereDateModif;
 
-    public FactureDocumentModel() {
+    private String delaiRreparationSouhaite;
+    private String etat;
+    private String typePanne;
+    private float nbHeureTravaille;
+
+    private String estAccessoire;
+    private String accessoire;
+
+    public ReparationModel() {
     }
 
-    public FactureDocumentModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String etat, float montantPaye, String modeReglement, String dateLimiteReglement, String details, String achat, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String createdBy, String modifiedBy, Date dateCreationAudit, String modifierStock,Date derniereDateModif) {
+    public ReparationModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String achat, String description, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String createdBy, String modifiedBy, Date dateCreationAudit, String delaiRreparationSouhaite, String etat, String typePanne, float nbHeureTravaille, String estAccessoire, String accessoire) {
         this.id = id;
         this.ref = ref;
         this.dateCreation = dateCreation;
         this.lieuCreation = lieuCreation;
         this.linesDocument = linesDocument;
         this.personId = personId;
-        this.etat = etat;
-        this.montantPaye = montantPaye;
-        this.modeReglement = modeReglement;
-        this.dateLimiteReglement = dateLimiteReglement;
-        this.details = details;
         this.achat = achat;
+        this.description = description;
         this.documenttotalHT = documenttotalHT;
         this.documenttotalTVA = documenttotalTVA;
         this.documenttotalReduction = documenttotalReduction;
@@ -61,24 +60,44 @@ private  String modifierStock;
         this.createdBy = createdBy;
         this.modifiedBy = modifiedBy;
         this.dateCreationAudit = dateCreationAudit;
-        this.modifierStock =modifierStock;
-        this.derniereDateModif=derniereDateModif;
+        this.delaiRreparationSouhaite = delaiRreparationSouhaite;
+        this.etat = etat;
+        this.typePanne=typePanne;
+        this.nbHeureTravaille=nbHeureTravaille;
+        this.estAccessoire=estAccessoire;
+        this.accessoire=accessoire;
     }
 
-    public Date getDerniereDateModif() {
-        return derniereDateModif;
+    public String getTypePanne() {
+        return typePanne;
     }
 
-    public void setDerniereDateModif(Date derniereDateModif) {
-        this.derniereDateModif = derniereDateModif;
+    public String getAccessoire() {
+        return accessoire;
     }
 
-    public String getModifierStock() {
-        return modifierStock;
+    public void setAccessoire(String accessoire) {
+        this.accessoire = accessoire;
     }
 
-    public void setModifierStock(String modifierStock) {
-        this.modifierStock = modifierStock;
+    public void setTypePanne(String typePanne) {
+        this.typePanne = typePanne;
+    }
+
+    public float getNbHeureTravaille() {
+        return nbHeureTravaille;
+    }
+
+    public void setNbHeureTravaille(float nbHeureTravaille) {
+        this.nbHeureTravaille = nbHeureTravaille;
+    }
+
+    public String getEstAccessoire() {
+        return estAccessoire;
+    }
+
+    public void setEstAccessoire(String estAccessoire) {
+        this.estAccessoire = estAccessoire;
     }
 
     public Long getId() {
@@ -129,52 +148,20 @@ private  String modifierStock;
         this.personId = personId;
     }
 
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
-
-    public float getMontantPaye() {
-        return montantPaye;
-    }
-
-    public void setMontantPaye(float montantPaye) {
-        this.montantPaye = montantPaye;
-    }
-
-    public String getModeReglement() {
-        return modeReglement;
-    }
-
-    public void setModeReglement(String modeReglement) {
-        this.modeReglement = modeReglement;
-    }
-
-    public String getDateLimiteReglement() {
-        return dateLimiteReglement;
-    }
-
-    public void setDateLimiteReglement(String dateLimiteReglement) {
-        this.dateLimiteReglement = dateLimiteReglement;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
     public String getAchat() {
         return achat;
     }
 
     public void setAchat(String achat) {
         this.achat = achat;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public float getDocumenttotalHT() {
@@ -239,5 +226,21 @@ private  String modifierStock;
 
     public void setDateCreationAudit(Date dateCreationAudit) {
         this.dateCreationAudit = dateCreationAudit;
+    }
+
+    public String getDelaiRreparationSouhaite() {
+        return delaiRreparationSouhaite;
+    }
+
+    public void setDelaiRreparationSouhaite(String delaiRreparationSouhaite) {
+        this.delaiRreparationSouhaite = delaiRreparationSouhaite;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 }

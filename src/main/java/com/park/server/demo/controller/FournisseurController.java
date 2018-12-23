@@ -3,6 +3,7 @@ package com.park.server.demo.controller;
 import com.park.server.demo.mapper.Mapper;
 import com.park.server.demo.model.Client;
 import com.park.server.demo.model.Fournisseur;
+import com.park.server.demo.modelMapper.FournisseurModel;
 import com.park.server.demo.repository.ClientRepository;
 import com.park.server.demo.repository.FournisseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,26 @@ public class FournisseurController {
     }
 
     @GetMapping
-    public List<Fournisseur> getFournisseurs(){
-        return  fournisseurRepository.findAll();
+    public List<FournisseurModel> getFournisseurs()
+    {
+        return  this.mapper.convertAllFournisseur();
     }
 
     @PostMapping
-    public void addFournisseur(@RequestBody Fournisseur fournisseur) {
-        fournisseurRepository.save(fournisseur);}
+    public void addFournisseur(@RequestBody FournisseurModel fournisseur) {
+
+        Fournisseur clientN = this.mapper.convertToFournisseurEntity(fournisseur);
+
+        this.fournisseurRepository.save(clientN);
+
+}
 
     @PutMapping
-    public void updateFournisseur(@RequestBody Fournisseur fournisseur){
-        fournisseurRepository.saveAndFlush(fournisseur);
+    public void updateFournisseur(@RequestBody FournisseurModel fournisseur){
+
+        Fournisseur clientN = this.mapper.convertToFournisseurEntity(fournisseur);
+
+        this.fournisseurRepository.saveAndFlush(clientN);
     }
     @DeleteMapping("/{id}")
     public void deleteFournisseur(@PathVariable Long id){

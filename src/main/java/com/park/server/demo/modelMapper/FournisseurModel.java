@@ -3,7 +3,7 @@ package com.park.server.demo.modelMapper;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class ClientModel {
+public class FournisseurModel {
 
     private Long id;
 

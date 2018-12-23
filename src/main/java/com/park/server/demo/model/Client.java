@@ -13,10 +13,22 @@ import java.util.Objects;
 @Entity
 public class Client extends Personne {
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private CategorieClient categorieClient;
+
     public Client() {
     }
 
-    public Client(Long id, String libelle, String nom, String prenom, String nomSociete, String mail, String telephoneFixe, String telephonePortable, String rib, String adresse, String createdBy, String modifiedBy, Date dateCreation,String ville) {
-        super(id,libelle, nom, prenom, nomSociete, mail, telephoneFixe, telephonePortable, rib, adresse,createdBy,modifiedBy,dateCreation,ville);
+    public Client(Long id, String libelle, String nom, String prenom, String nomSociete, String mail, String telephoneFixe, String telephonePortable, String rib, String adresse, String createdBy, String modifiedBy, Date dateCreation,String ville,CategorieClient categorieClient,Date derniereDateModif) {
+        super(id,libelle, nom, prenom, nomSociete, mail, telephoneFixe, telephonePortable, rib, adresse,createdBy,modifiedBy,dateCreation,ville,derniereDateModif);
+   this.categorieClient=categorieClient;
+    }
+
+    public CategorieClient getCategorieClient() {
+        return categorieClient;
+    }
+
+    public void setCategorieClient(CategorieClient categorieClient) {
+        this.categorieClient = categorieClient;
     }
 }

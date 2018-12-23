@@ -20,18 +20,23 @@ public class Produit {
     private String ref;
     private int quantite;
     private float prixUnitaire ;
+    private float avc ;
+    private float margeUnitaire ;
 
 
     @CreatedDate
     private Date dateCreationAudit;
     @LastModifiedDate
     private Date derniereDateModif;
+    private String marque;
 
     @CreatedBy
     private String createdBy;
 
     @LastModifiedBy
     private String modifiedBy;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private CategorieProduit categorieProduit;
 
     public Produit() {
     }
@@ -49,10 +54,29 @@ public class Produit {
         return Objects.hash(id);
     }
 
-    public Produit(String ref, int quantite, float prixUnitaire) {
+    public Produit(String ref, int quantite, float prixUnitaire,float avc,float margeUnitaire,String marque) {
         this.ref = ref;
         this.quantite = quantite;
         this.prixUnitaire = prixUnitaire;
+        this.avc=avc;
+        this.margeUnitaire=margeUnitaire;
+        this.marque=marque;
+    }
+
+    public float getAvc() {
+        return avc;
+    }
+
+    public void setAvc(float avc) {
+        this.avc = avc;
+    }
+
+    public float getMargeUnitaire() {
+        return margeUnitaire;
+    }
+
+    public void setMargeUnitaire(float margeUnitaire) {
+        this.margeUnitaire = margeUnitaire;
     }
 
     public Long getId() {
@@ -107,6 +131,14 @@ public class Produit {
         return createdBy;
     }
 
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
@@ -117,5 +149,13 @@ public class Produit {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public CategorieProduit getCategorieProduit() {
+        return categorieProduit;
+    }
+
+    public void setCategorieProduit(CategorieProduit categorieProduit) {
+        this.categorieProduit = categorieProduit;
     }
 }

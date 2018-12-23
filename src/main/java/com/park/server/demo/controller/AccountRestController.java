@@ -1,10 +1,13 @@
 package com.park.server.demo.controller;
 
+import com.park.server.demo.model.AppRole;
 import com.park.server.demo.model.AppUser;
-import com.park.server.demo.service.AccountService;
+import com.park.server.demo.repository.RoleRepository;
+import com.park.server.demo.repository.UserRepository;
 import com.park.server.demo.web.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,34 +37,43 @@ import java.util.Properties;
 public class AccountRestController {
 
      @Autowired
-    private AccountService accountService;
+    private UserRepository userRepository;
+
+     @Autowired
+     private RoleRepository roleRepository;
 @Value("${gmail.username}")
 private String username;
     @Value("${gmail.password}")
 private String password;
 
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @PostMapping
       public AppUser register(@RequestBody RegisterForm userForm,   BindingResult bindingResult)
       {
 
           if(!userForm.getPassword().equals(userForm.getRepassword())) throw new RuntimeException("you must confirm your password");
-          AppUser user= accountService.findUserByUserName(userForm.getUsername());
+          AppUser user= userRepository.findByUsername(userForm.getUsername());
 
           if(user!=null) throw new RuntimeException("this user already exist");
           AppUser  appUser = new AppUser();
-          appUser.setUsername(userForm.getUsername());
-          appUser.setPassword(userForm.getPassword());
+          appUser.setUsernametest(userForm.getUsername());
           appUser.setEmail(userForm.getEmail());
-           accountService.saveUser(appUser);
-           accountService.addRoleToUSer(userForm.getUsername(),"USER");
-          try {
+          appUser.setValid("non");
+          String hashPW=bCryptPasswordEncoder.encode(userForm.getPassword());
+          appUser.setPassword(hashPW);
+
+          userRepository.save(appUser);
+        addRoleToUSer(userForm.getUsername(),"USER");
+      /*  try {
               this.sendmail("helo");
           } catch (MessagingException e) {
               e.printStackTrace();
           } catch (IOException e) {
               e.printStackTrace();
           }
-
+*/
           if(bindingResult.hasErrors()){
               throw new ValidationException("Feedback is not valid");
           }
@@ -70,6 +82,11 @@ private String password;
       }
 
 
+    public void addRoleToUSer(String username, String roleName) {
+        AppRole role=roleRepository.findByRoleName(roleName);
+        AppUser user=userRepository.findByUsername(username);
+        user.getRoles().add(role);
+    }
     private void sendmail(String emailmessage) throws AddressException, MessagingException, IOException {
 
         Properties props = new Properties();
@@ -89,8 +106,8 @@ private String password;
         msg.setFrom(new InternetAddress(username, false));
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("lobnahariz@gmail.com"));
-        msg.setSubject("jhelo");
-        msg.setContent("yes", "text/html");
+        msg.setSubject("Inscription");
+        msg.setContent("Merci pour votre inscription! Notre admin est en cours de la traiter", "text/html");
         msg.setSentDate(new Date());
 
         MimeBodyPart messageBodyPart = new MimeBodyPart();

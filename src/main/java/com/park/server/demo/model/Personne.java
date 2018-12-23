@@ -48,7 +48,7 @@ public abstract class Personne {
     public Personne() {
     }
 
-    public Personne(Long id, String libelle, String nom, String prenom, String nomSociete, String mail, String telephoneFixe, String telephonePortable, String rib, String adresse,String createdBy,String modifiedBy,Date dateCreation,String ville) {
+    public Personne(Long id, String libelle, String nom, String prenom, String nomSociete, String mail, String telephoneFixe, String telephonePortable, String rib, String adresse,String createdBy,String modifiedBy,Date dateCreation,String ville,Date derniereDateModif) {
        this.id=id;
         this.libelle = libelle;
         this.nom = nom;
@@ -63,6 +63,7 @@ public abstract class Personne {
         this.modifiedBy = modifiedBy;
         this.dateCreation = dateCreation;
         this.ville=ville;
+        this.derniereDateModif=derniereDateModif;
     }
 
     public Long getId() {

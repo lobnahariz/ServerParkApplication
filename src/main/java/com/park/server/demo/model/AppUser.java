@@ -17,9 +17,36 @@ public class AppUser {
     private String username;
     private String password;
     private String email;
+    private String valid;
+    private String usernametest;
 
     @ManyToMany(fetch=FetchType.EAGER)
 private Collection<AppRole> roles = new ArrayList<>();
+
+    public AppUser(String email, String username, String password, String valid, Collection<AppRole> roles,String usernametest) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.valid = valid;
+        this.roles = roles;
+        this.usernametest=usernametest;
+    }
+
+    public String getUsernametest() {
+        return usernametest;
+    }
+
+    public void setUsernametest(String usernametest) {
+        this.usernametest = usernametest;
+    }
+
+    public String getValid() {
+        return valid;
+    }
+
+    public void setValid(String valid) {
+        this.valid = valid;
+    }
 
     public Long getId() {
         return id;

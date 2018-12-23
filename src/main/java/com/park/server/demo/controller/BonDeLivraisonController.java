@@ -49,6 +49,7 @@ public class BonDeLivraisonController {
         if (bindingResult.hasErrors()) {
             throw new ValidationException();
         }
+
         BonLivraisonDocument bonLivraisonDocument = this.mapper.convertToBonDeLivraisonDocumentEntity(bonDeLivraisonDocumentModel);
 
         this.bonDeLivraisonRepository.save(bonLivraisonDocument);

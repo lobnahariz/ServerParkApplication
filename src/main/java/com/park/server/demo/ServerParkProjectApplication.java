@@ -1,45 +1,48 @@
 package com.park.server.demo;
 
 import com.park.server.demo.model.*;
-import com.park.server.demo.repository.ProduitRepository;
-import com.park.server.demo.repository.TaskRepository;
-import com.park.server.demo.service.AccountService;
+import com.park.server.demo.repository.RoleRepository;
+import com.park.server.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.stream.Stream;
 
 @SpringBootApplication
 @EnableJpaAuditing
 public class ServerParkProjectApplication implements CommandLineRunner {
 
     @Autowired
-    private TaskRepository taskRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-     private AccountService accountService;
+     private UserRepository userRepository;
 
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     public static void main(String[] args) {
 SpringApplication.run(ServerParkProjectApplication.class,args);
    }
 
+    public void addRoleToUSer(String username, String roleName) {
+        AppRole role=roleRepository.findByRoleName(roleName);
+        AppUser user=userRepository.findByUsername(username);
+        user.getRoles().add(role);
+    }
     @Override
     public void run(String... args) throws Exception {
-        accountService.saveUser(new AppUser(null,"admin","1234",null,null));
-        accountService.saveUser(new AppUser(null,"user","1234",null,null));
-accountService.saveRole(new AppRole(null,"ADMIN"));
-        accountService.saveRole(new AppRole(null,"USER"));
-        accountService.addRoleToUSer("admin","ADMIN");
-        accountService.addRoleToUSer("admin","USER");
-        accountService.addRoleToUSer("user","USER");
-
-
+        String hashPW=bCryptPasswordEncoder.encode("1234");
+        userRepository.save(new AppUser(null,"admin",hashPW,"oui",null,"admin"));
+        userRepository.save(new AppUser(null,"lobna",hashPW,"oui",null,"lobna"));
+        roleRepository.save(new AppRole(null,"ADMIN"));
+        roleRepository.save(new AppRole(null,"USER"));
+        addRoleToUSer("admin","ADMIN");
+       addRoleToUSer("admin","USER");
+        addRoleToUSer("lobna","USER");
     }
 
     @Bean

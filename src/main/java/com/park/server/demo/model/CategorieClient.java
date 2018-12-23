@@ -1,5 +1,6 @@
 package com.park.server.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -8,23 +9,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Reclamation {
+public class CategorieClient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String titre;
-    private String description;
-    private String valide;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idCategorie;
 
+    private String nom;
+    private String description;
+
+    @OneToMany(mappedBy = "categorieClient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    List<Client> clientList;
 
     @CreatedDate
-    private Date dateCreationAudit;
+    private Date dateCreation;
     @LastModifiedDate
+
     private Date derniereDateModif;
 
     @CreatedBy
@@ -33,47 +38,32 @@ public class Reclamation {
     @LastModifiedBy
     private String modifiedBy;
 
-    public Reclamation() {
+    public Long getIdCategorie() {
+        return idCategorie;
     }
 
-    public Long getId() {
-        return id;
+    public void setIdCategorie(Long idCategorie) {
+        this.idCategorie = idCategorie;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getNom() {
+        return nom;
     }
 
-    public String getTitre() {
-        return titre;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public List<Client> getClientList() {
+        return clientList;
     }
 
-    public String getDescription() {
-        return description;
+    public Date getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getValide() {
-        return valide;
-    }
-
-    public void setValide(String valide) {
-        this.valide = valide;
-    }
-
-    public Date getDateCreationAudit() {
-        return dateCreationAudit;
-    }
-
-    public void setDateCreationAudit(Date dateCreationAudit) {
-        this.dateCreationAudit = dateCreationAudit;
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
     public Date getDerniereDateModif() {
@@ -98,5 +88,17 @@ public class Reclamation {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public void setClientList(List<Client> clientList) {
+        this.clientList = clientList;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -39,8 +39,10 @@ private FactureRepository factureRepository;
     }
 
     @GetMapping
-    public List<Client> getClients(){
-        return clientRepository.findAll(); }
+    public List<ClientModel> getClients(){
+
+        return  this.mapper.convertAllClient();
+      }
 
     @PostMapping
     public Client addClient(@RequestBody ClientModel client, BindingResult bindingResult) {
@@ -103,8 +105,15 @@ liste.put(client.getLibelle(),somme);
         return mapper.convertTochartModel(liste);
     }
     @PutMapping
-    public void updateClient(@RequestBody Client client){
-        clientRepository.saveAndFlush(client);
+    public void updateClient(@RequestBody ClientModel client)
+    {
+System.out.println(client.getVille()+"**********");
+        Client clientN = this.mapper.convertToClientEntity(client);
+
+        this.clientRepository.saveAndFlush(clientN);
+
+
+
     }
     @DeleteMapping("/{id}")
     public void deleteClient(@PathVariable Long id)

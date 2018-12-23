@@ -1,39 +1,37 @@
-package com.park.server.demo.model;
+package com.park.server.demo.modelMapper;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Objects;
 
-@Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Reclamation {
+public class ReclamationModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
     private String titre;
+
     private String description;
+
     private String valide;
 
-
-    @CreatedDate
     private Date dateCreationAudit;
-    @LastModifiedDate
     private Date derniereDateModif;
 
-    @CreatedBy
     private String createdBy;
-
-    @LastModifiedBy
     private String modifiedBy;
 
-    public Reclamation() {
+    public ReclamationModel() {
+    }
+
+    public ReclamationModel(Long id, String titre, String description, String valide, Date dateCreationAudit, Date derniereDateModif, String createdBy, String modifiedBy) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.valide = valide;
+        this.dateCreationAudit = dateCreationAudit;
+        this.derniereDateModif = derniereDateModif;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
     }
 
     public Long getId() {
