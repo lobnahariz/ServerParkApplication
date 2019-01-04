@@ -19,8 +19,8 @@ public class AvoirModel {
 
     private Long personId;
 
-    private Boolean achat;
-    private String description;
+    private String achat;
+    private String factureReference;
 
     private float documenttotalHT;
     private float documenttotalTVA;
@@ -30,6 +30,8 @@ public class AvoirModel {
     private String createdBy;
     private String modifiedBy;
     private Date dateCreationAudit;
+
+
     public Long getId() {
         return id;
     }
@@ -78,20 +80,20 @@ public class AvoirModel {
         this.personId = personId;
     }
 
-    public Boolean getAchat() {
+    public String getAchat() {
         return achat;
     }
 
-    public void setAchat(Boolean achat) {
+    public void setAchat(String achat) {
         this.achat = achat;
     }
 
-    public String getDescription() {
-        return description;
+    public String getFactureReference() {
+        return factureReference;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFactureReference(String factureReference) {
+        this.factureReference = factureReference;
     }
 
     public float getDocumenttotalHT() {
@@ -156,5 +158,27 @@ public class AvoirModel {
 
     public void setDateCreationAudit(Date dateCreationAudit) {
         this.dateCreationAudit = dateCreationAudit;
+    }
+
+    public AvoirModel(Long id, @NotNull String ref, String dateCreation, String lieuCreation, int linesDocument, Long personId, String achat, String factureReference, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String createdBy, String modifiedBy, Date dateCreationAudit) {
+        this.id = id;
+        this.ref = ref;
+        this.dateCreation = dateCreation;
+        this.lieuCreation = lieuCreation;
+        this.linesDocument = linesDocument;
+        this.personId = personId;
+        this.achat = achat;
+        this.factureReference = factureReference;
+        this.documenttotalHT = documenttotalHT;
+        this.documenttotalTVA = documenttotalTVA;
+        this.documenttotalReduction = documenttotalReduction;
+        this.documenttotalTTC = documenttotalTTC;
+        this.documenttotalTTCReduction = documenttotalTTCReduction;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.dateCreationAudit = dateCreationAudit;
+    }
+
+    public AvoirModel() {
     }
 }

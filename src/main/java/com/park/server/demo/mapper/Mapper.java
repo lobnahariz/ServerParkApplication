@@ -21,7 +21,8 @@ CategorieProduitRepository categorieProduitRepository;
 FactureRepository factureRepository;
 ReclamationRepository reclamationRepository;
 UserRepository userRepository;
-    public Mapper(UserRepository userRepository,ReclamationRepository reclamationRepository, ProduitRepository produitRepository,CategorieProduitRepository categorieProduitRepository,CategorieFournisseurRepository categorieFournisseurRepository,CategorieClientRepository categorieClientRepository,  FactureRepository factureRepository,EnteteDocumentRepository enteteDocumentRepository,ClientRepository clientRepository,FournisseurRepository fournisseurRepository) {
+RoleRepository roleRepository;
+    public Mapper(RoleRepository roleRepository, UserRepository userRepository,ReclamationRepository reclamationRepository, ProduitRepository produitRepository,CategorieProduitRepository categorieProduitRepository,CategorieFournisseurRepository categorieFournisseurRepository,CategorieClientRepository categorieClientRepository,  FactureRepository factureRepository,EnteteDocumentRepository enteteDocumentRepository,ClientRepository clientRepository,FournisseurRepository fournisseurRepository) {
         this.enteteDocumentRepository = enteteDocumentRepository;
         this.clientRepository=clientRepository;
         this.fournisseurRepository = fournisseurRepository;
@@ -32,6 +33,7 @@ UserRepository userRepository;
         this.userRepository=userRepository;
         this.produitRepository=produitRepository;
         this.reclamationRepository =reclamationRepository;
+        this.roleRepository = roleRepository;
     }
     List<BonDeLivraisonDocumentModel> liste=new ArrayList<BonDeLivraisonDocumentModel>();
     List<FactureDocumentModel> listeFacture=new ArrayList<FactureDocumentModel>();
@@ -287,6 +289,7 @@ produitModel.setId(produit.getId());
             produitModel.setAvc(produit.getAvc());
             produitModel.setMargeUnitaire(produit.getMargeUnitaire());
             produitModel.setMarque(produit.getMarque());
+            produitModel.setValeurStock(produit.getValeurStock());
             produitModels.add(produitModel);
         });
         return produitModels;
@@ -384,11 +387,30 @@ return clientModels;
 
         return entity;
     }
-
+    public ProduitModel convertToProduitModel(Produit produit) {
+        // DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        CategorieProduit categorieProduit=categorieProduitRepository.getCategorieProduitByNom(produit.getCategorieProduit().getNom());
+        ProduitModel entity = new ProduitModel();
+        entity.setId(produit.getId());
+        entity.setRef(produit.getRef());
+        entity.setQuantite(produit.getQuantite());
+        entity.setPrixUnitaire(produit.getPrixUnitaire());
+        entity.setDateCreation(produit.getDateCreationAudit());
+        entity.setCreatedBy(produit.getCreatedBy());
+        entity.setDerniereDateModif(produit.getDerniereDateModif());
+        entity.setModifiedBy(produit.getModifiedBy());
+        entity.setCategorieCode(categorieProduit.getNom());
+        entity.setAvc(produit.getAvc());
+        entity.setMargeUnitaire(produit.getMargeUnitaire());
+        entity.setMarque(produit.getMarque());
+        entity.setValeurStock(produit.getValeurStock());
+        return entity;
+    }
     public Produit convertToProduitEntity(ProduitModel viewModel) {
         // DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         CategorieProduit categorieProduit=categorieProduitRepository.getCategorieProduitByNom(viewModel.getCategorieCode());
         Produit entity = new Produit();
+        System.out.println(viewModel.getMargeUnitaire()+"  "+viewModel.getValeurStock()+" "+viewModel.getAvc());
 entity.setId(viewModel.getId());
         entity.setRef(viewModel.getRef());
         entity.setQuantite(viewModel.getQuantite());
@@ -401,6 +423,7 @@ entity.setId(viewModel.getId());
         entity.setAvc(viewModel.getAvc());
         entity.setMargeUnitaire(viewModel.getMargeUnitaire());
         entity.setMarque(viewModel.getMarque());
+        entity.setValeurStock(viewModel.getValeurStock());
         return entity;
     }
 
@@ -422,12 +445,11 @@ public List<ChartMapModel> convertTochartModel(Map<String,Float> liste){
         return listeModel;
 }
 
-   /* public Avoir convertToAvoirEntity(AvoirModel viewModel) {
+    public Avoir convertToAvoirEntity(AvoirModel viewModel) {
 
         Personne personne;
         Avoir entity;
-        if(viewModel.getAchat()!= null){
-            if( viewModel.getAchat()){
+            if( viewModel.getAchat().equals("Achat")){
                 personne= fournisseurRepository.findById(viewModel.getPersonId()).get();
             }else{
                 personne= clientRepository.findById(viewModel.getPersonId()).get();
@@ -443,36 +465,15 @@ public List<ChartMapModel> convertTochartModel(Map<String,Float> liste){
                     viewModel.getDocumenttotalReduction(),
                     viewModel.getDocumenttotalTTC(),
                     viewModel.getDocumenttotalTTCReduction(),
-                    viewModel.getEtat(),
-                    viewModel.getMontantPaye(),
-                    viewModel.getModeReglement(),
-                    viewModel.getDateLimiteReglement(),
-                    viewModel.getDetails()
+                    viewModel.getFactureReference(),
+                    viewModel.getCreatedBy(),
+                    viewModel.getModifiedBy(),
+                    viewModel.getDateCreationAudit()
             );
-        }else{
-            entity = new Avoir( viewModel.getId(),
-                    viewModel.getRef(),
-                    viewModel.getDateCreation(),
-                    viewModel.getLieuCreation(),
-                    viewModel.getAchat(),
-                    null,
-                    viewModel.getDocumenttotalHT(),
-                    viewModel.getDocumenttotalTVA(),
-                    viewModel.getDocumenttotalReduction(),
-                    viewModel.getDocumenttotalTTC(),
-                    viewModel.getDocumenttotalTTCReduction(),
-                    viewModel.getEtat(),
-                    viewModel.getMontantPaye(),
-                    viewModel.getModeReglement(),
-                    viewModel.getDateLimiteReglement(),
-                    viewModel.getDetails()
-            );
-
-        }
 
         return entity;
     }
-*/
+
 
     public LineDocument convertToLineDocumentEntity(LineDocumentModel viewModel,Long idEntete) {
         EnteteDocument enteteDocument = enteteDocumentRepository.findById(idEntete).get();
@@ -669,7 +670,7 @@ reclamationModel.setModifiedBy(reclamation.getModifiedBy());
 
             UserModel userModel=new UserModel();
             userModel.setId(user.getId());
-userModel.setUsernametest(user.getUsername());
+userModel.setTestlogin(user.getTestlogin());
             userModel.setEmail(user.getEmail());
             userModel.setPassword(user.getPassword());
             userModel.setUsername(user.getUsername());
@@ -681,13 +682,54 @@ userModel.setValid(user.getValid());
 
 
     public AppUser convertToUserEntity(UserModel userModel) {
+        AppRole role=roleRepository.findByRoleName("USER");
 
         AppUser entity = new AppUser();
         entity.setId(userModel.getId());
-        entity.setUsername(userModel.getUsername());
+        entity.setUsername(userModel.getTestlogin());
         entity.setPassword(userModel.getPassword());
         entity.setValid(userModel.getValid());
-        entity.setUsernametest(userModel.getUsername());
+        entity.setEmail(userModel.getEmail());
+        entity.setTestlogin(userModel.getTestlogin());
+        entity.getRoles().add(role);
         return entity;
+    }
+    public AppUser convertToUserEntityFalse(UserModel userModel) {
+        AppRole role=roleRepository.findByRoleName("USER");
+
+        AppUser entity = new AppUser();
+        entity.setId(userModel.getId());
+        entity.setUsername(null);
+        entity.setPassword(userModel.getPassword());
+        entity.setValid(userModel.getValid());
+        entity.setEmail(userModel.getEmail());
+        entity.setTestlogin(userModel.getTestlogin());
+        entity.getRoles().add(role);
+
+        return entity;
+    }
+
+    public AvoirModel convertToAvoirDocumentByIdModel(Avoir avoir){
+
+        AvoirModel model = new AvoirModel(avoir.getId(),
+                avoir.getRef(),
+                avoir.getDateCreation(),
+                avoir.getLieuCreation(),
+                avoir.getLinesDocument().size(),
+                avoir.getPersonne().getId(),
+                avoir.getAchat(),
+                avoir.getFactureReference(),
+                avoir.getDocumenttotalHT(),
+                avoir.getDocumenttotalTVA(),
+                avoir.getDocumenttotalReduction(),
+                avoir.getDocumenttotalTTC(),
+                avoir.getDocumenttotalTTCReduction(),
+                avoir.getCreatedBy(),
+                avoir.getModifiedBy(),
+                avoir.getDateCreationAudit()
+        );
+
+
+        return model;
     }
 }

@@ -37,14 +37,22 @@ public class UserController {
     }
     @GetMapping("/api/user")
     public List<UserModel> getAllUser(){
-        return mapper.convertAllUser();
+        List<UserModel> liste= mapper.convertAllUser();
+        liste.forEach(list->{
+            System.out.println(list.getTestlogin());
+        });
+        return liste;
     }
 
     @PutMapping("/api/user")
     public void updateUtilisateur(@RequestBody UserModel userModel){
+        AppUser appUser;
+        if(userModel.getValid().equals("oui")) {
+             appUser = this.mapper.convertToUserEntity(userModel);
+        }else{
+             appUser = this.mapper.convertToUserEntityFalse(userModel);
 
-        AppUser appUser = this.mapper.convertToUserEntity(userModel);
-
+        }
         this.userRepository.saveAndFlush(appUser);
     }
     @DeleteMapping("/api/user/{id}")

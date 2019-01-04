@@ -32,6 +32,7 @@ SpringApplication.run(ServerParkProjectApplication.class,args);
         AppRole role=roleRepository.findByRoleName(roleName);
         AppUser user=userRepository.findByUsername(username);
         user.getRoles().add(role);
+        userRepository.saveAndFlush(user);
     }
     @Override
     public void run(String... args) throws Exception {

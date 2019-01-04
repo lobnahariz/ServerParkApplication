@@ -24,8 +24,18 @@ public class ProduitModel {
 
     private float avc;
     private float margeUnitaire;
+    private float valeurStock;
+
     public Long getId() {
         return id;
+    }
+
+    public float getValeurStock() {
+        return valeurStock;
+    }
+
+    public void setValeurStock(float valeurStock) {
+        this.valeurStock = valeurStock;
     }
 
     public void setId(Long id) {

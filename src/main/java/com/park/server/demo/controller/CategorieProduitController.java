@@ -2,8 +2,12 @@ package com.park.server.demo.controller;
 
 import com.park.server.demo.model.CategorieClient;
 import com.park.server.demo.model.CategorieProduit;
+import com.park.server.demo.model.FactureDocument;
+import com.park.server.demo.model.LineDocument;
 import com.park.server.demo.repository.CategorieClientRepository;
 import com.park.server.demo.repository.CategorieProduitRepository;
+import com.park.server.demo.repository.FactureRepository;
+import com.park.server.demo.repository.LineDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +19,23 @@ public class CategorieProduitController {
 
     @Autowired
     private CategorieProduitRepository categorieProduitRepository;
+
+    @Autowired
+    private LineDocumentRepository lineDocumentRepository;
+
+    private float totalJanvier;
+    private float totalFev;
+    private float totalMars;
+    private float totalAvril;
+    private float totalMai;
+    private float totalJuin;
+    private float totalJuillet;
+    private float totalAout;
+    private float totalSept;
+    private float totalOct;
+    private float totalNov;
+    private float totalDec;
+
     @GetMapping
     public List<CategorieProduit> getCategorieProduits(){
         return  categorieProduitRepository.findAll();
@@ -41,11 +62,13 @@ public class CategorieProduitController {
     @GetMapping("/getByName/{name}")
     public int getCategorieProduitById(@PathVariable String name){
         CategorieProduit categorieProduit = categorieProduitRepository.getCategorieProduitByNom(name);
-System.out.println("laaa");
         if(categorieProduit == null){
             return 0;
         }else{
             return 1;
         }
     }
+
+
+
 }

@@ -13,17 +13,20 @@ public class UserModel {
 
 
     private String email;
-private String usernametest;
+private String testlogin;
+
+
+
     public Long getId() {
         return id;
     }
 
-    public String getUsernametest() {
-        return usernametest;
+    public String getTestlogin() {
+        return testlogin;
     }
 
-    public void setUsernametest(String usernametest) {
-        this.usernametest = usernametest;
+    public void setTestlogin(String testlogin) {
+        this.testlogin = testlogin;
     }
 
     public void setId(Long id) {

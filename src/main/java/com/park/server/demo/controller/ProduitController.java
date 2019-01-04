@@ -41,8 +41,10 @@ private ProduitRepository produitRepository;
 
 
     @GetMapping("/api/produit/getByRef/{ref}")
-    public Produit getProduit(@PathVariable String ref){
-        return  produitRepository.getProduitByRef(ref);
+    public ProduitModel getProduit(@PathVariable String ref)
+    {
+        Produit produit= produitRepository.getProduitByRef(ref);
+        return  this.mapper.convertToProduitModel(produit);
     }
     @GetMapping("/api/produit/totalByProduit")
     public List<ChartWithDateMapModel> getTotalVenteParMoisPourArticle(){

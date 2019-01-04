@@ -58,22 +58,23 @@ private String password;
 
           if(user!=null) throw new RuntimeException("this user already exist");
           AppUser  appUser = new AppUser();
-          appUser.setUsernametest(userForm.getUsername());
+          appUser.setTestlogin(userForm.getUsername());
           appUser.setEmail(userForm.getEmail());
           appUser.setValid("non");
           String hashPW=bCryptPasswordEncoder.encode(userForm.getPassword());
           appUser.setPassword(hashPW);
 
           userRepository.save(appUser);
-        addRoleToUSer(userForm.getUsername(),"USER");
-      /*  try {
-              this.sendmail("helo");
+        addRoleToUSer(appUser.getUsername(),"USER");
+
+        try {
+              this.sendmail("helo",appUser.getEmail());
           } catch (MessagingException e) {
               e.printStackTrace();
           } catch (IOException e) {
               e.printStackTrace();
           }
-*/
+
           if(bindingResult.hasErrors()){
               throw new ValidationException("Feedback is not valid");
           }
@@ -86,8 +87,9 @@ private String password;
         AppRole role=roleRepository.findByRoleName(roleName);
         AppUser user=userRepository.findByUsername(username);
         user.getRoles().add(role);
+        userRepository.saveAndFlush(user);
     }
-    private void sendmail(String emailmessage) throws AddressException, MessagingException, IOException {
+    private void sendmail(String emailmessage,String email) throws AddressException, MessagingException, IOException {
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -105,7 +107,7 @@ private String password;
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(username, false));
 
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse("lobnahariz@gmail.com"));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
         msg.setSubject("Inscription");
         msg.setContent("Merci pour votre inscription! Notre admin est en cours de la traiter", "text/html");
         msg.setSentDate(new Date());

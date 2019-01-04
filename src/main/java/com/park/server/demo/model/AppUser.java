@@ -18,26 +18,26 @@ public class AppUser {
     private String password;
     private String email;
     private String valid;
-    private String usernametest;
+    private String testlogin;
 
     @ManyToMany(fetch=FetchType.EAGER)
 private Collection<AppRole> roles = new ArrayList<>();
 
-    public AppUser(String email, String username, String password, String valid, Collection<AppRole> roles,String usernametest) {
+    public AppUser(String email, String username, String password, String valid, Collection<AppRole> roles,String testlogin) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.valid = valid;
         this.roles = roles;
-        this.usernametest=usernametest;
+        this.testlogin=testlogin;
     }
 
-    public String getUsernametest() {
-        return usernametest;
+    public String getTestlogin() {
+        return testlogin;
     }
 
-    public void setUsernametest(String usernametest) {
-        this.usernametest = usernametest;
+    public void setTestlogin(String testlogin) {
+        this.testlogin = testlogin;
     }
 
     public String getValid() {

@@ -8,37 +8,32 @@ import java.util.Date;
 @Entity
 public class Avoir extends EnteteDocument{
 
-private String description;
+private String factureReference;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private FactureDocument factureDocument;
-
-    public Avoir(String description, FactureDocument factureDocument) {
-        this.description = description;
-        this.factureDocument = factureDocument;
+    public Avoir() {
     }
 
-    public Avoir(Long id, String ref, String dateCreation, String lieuCreation, String achat, Personne personne, float documenttotalHT, float documenttotalTVA, float documenttotalReduction, float documenttotalTTC, float documenttotalTTCReduction, String description, FactureDocument factureDocument, String createdBy, String modifiedBy, Date dateCreationAudit) {
+    public Avoir(String factureRefrence) {
+        this.factureReference = factureRefrence;
+    }
+
+    public Avoir(Long id, String ref, String dateCreation,
+                 String lieuCreation, String achat,
+                 Personne personne, float documenttotalHT,
+                 float documenttotalTVA, float documenttotalReduction,
+                 float documenttotalTTC, float documenttotalTTCReduction,
+                 String factureRefrence, String createdBy,
+                 String modifiedBy, Date dateCreationAudit) {
         super(id, ref, dateCreation, lieuCreation, achat, personne, documenttotalHT, documenttotalTVA, documenttotalReduction, documenttotalTTC, documenttotalTTCReduction,createdBy,modifiedBy,dateCreationAudit);
-        this.description = description;
-        this.factureDocument = factureDocument;
+        this.factureReference = factureRefrence;
     }
 
-    public String getDescription() {
-        return description;
+    public String getFactureReference() {
+        return factureReference;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public FactureDocument getFactureDocument() {
-        return factureDocument;
-    }
-
-    public void setFactureDocument(FactureDocument factureDocument) {
-        this.factureDocument = factureDocument;
+    public void setFactureReference(String factureReference) {
+        this.factureReference = factureReference;
     }
 }

@@ -19,10 +19,6 @@ private String details;
     private String modifierStock;
 
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "factureDocument")
-    private Avoir avoir;
 
     public FactureDocument() {
         super();
@@ -47,13 +43,6 @@ private String details;
         this.modifierStock = modifierStock;
     }
 
-    public Avoir getAvoir() {
-        return avoir;
-    }
-
-    public void setAvoir(Avoir avoir) {
-        this.avoir = avoir;
-    }
 
     public String getEtat() {
         return etat;

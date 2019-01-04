@@ -22,6 +22,7 @@ public class Produit {
     private float prixUnitaire ;
     private float avc ;
     private float margeUnitaire ;
+    private float valeurStock ;
 
 
     @CreatedDate
@@ -54,13 +55,22 @@ public class Produit {
         return Objects.hash(id);
     }
 
-    public Produit(String ref, int quantite, float prixUnitaire,float avc,float margeUnitaire,String marque) {
+    public Produit(String ref, int quantite, float prixUnitaire,float avc,float margeUnitaire,String marque,float valeurStock) {
         this.ref = ref;
         this.quantite = quantite;
         this.prixUnitaire = prixUnitaire;
         this.avc=avc;
         this.margeUnitaire=margeUnitaire;
         this.marque=marque;
+        this.valeurStock=valeurStock;
+    }
+
+    public float getValeurStock() {
+        return valeurStock;
+    }
+
+    public void setValeurStock(float valeurStock) {
+        this.valeurStock = valeurStock;
     }
 
     public float getAvc() {
